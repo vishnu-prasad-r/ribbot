@@ -51,6 +51,7 @@ Ribbot::Application.routes.draw do
   resources :password_resets
   resources :sessions
 
+  match '/auth/:provider/callback', to: 'sessions#create'
   match 'signin' => "sessions#new"
   match 'signout' => "sessions#destroy", :via => :delete
   match 'features' => 'static#features'

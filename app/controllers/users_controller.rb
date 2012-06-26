@@ -42,9 +42,10 @@ class UsersController < ApplicationController
   
   def password_reset
     @user = current_user
-    if @user.authenticate(params[:old_password])
+    if @user.random_password || @user.authenticate(params[:old_password])
       if params[:password] == params[:password_confirmation]
         @user.password = params[:password]
+	@user.random_password = false
         if @user.save
           redirect_to account_profile_path, :notice => "Password updated!"
         else

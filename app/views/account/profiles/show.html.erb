@@ -51,7 +51,16 @@
 
         <div class="control-group">
           <%= label_tag :old_password, nil, :class => "control-label" %>
+	<% if !current_user.random_password %>
           <div class="controls"><%= password_field_tag :old_password %></div>
+	<% else %>
+	  <div class="controls"><%= text_field_tag :old_password, nil,
+	      { :disabled => true,
+		:placeholder => "... isn't required untill changed",
+		:title => "Old password was generated randomly, so it isn't required untill changed"
+	      } %>
+	  </div>
+	<% end %>
         </div>
       
         <div class="control-group">

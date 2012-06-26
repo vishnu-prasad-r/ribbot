@@ -19,6 +19,7 @@ class User
   field :website, :type => String
   field :location, :type => String
   field :about, :type => String
+  field :random_password, :type => Boolean, :default => false
 
   index :email, unique: true
   index :verification_token, unique: true
@@ -38,6 +39,30 @@ class User
 
   before_validation :downcase_email
   
+  def self.find_or_create_from_omniauth auth
+    find_or_create_by({email: auth.info.email}) do |u|
+      u.name = auth.info.name
+      u.about = auth.info.description
+      u.website = auth.extra.raw_info.website
+      u.location = auth.info.location
+
+      #generating a random password
+      password = ''
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ23456789'
+      16.times { |i| password << chars[rand(chars.length)] }
+      u.password = password
+      u.random_password = true
+
+      # check if verified
+      if auth.info.verified
+	u.generate_token(:verification_token)
+	u.verified_at = Time.zone.now
+      end
+
+      yield u
+    end if auth
+  end
+
   def downcase_email
     self.email = self.email.downcase
   end

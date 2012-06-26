@@ -25,6 +25,8 @@ gem 'dalli',                         '1.1.3'
 gem 'url2png',                       '0.0.6'
 gem 'redcarpet',                     '2.0.0'
 gem 'heroku',                        '2.20.1'
+gem 'omniauth-github',               '1.0.1'
+gem 'omniauth-facebook',             '1.4.0'
 
 group :assets do
   gem 'sass-rails', "  ~> 3.1.4"

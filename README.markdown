@@ -28,6 +28,8 @@ Standard online forums often lead to low quality discussions. Sites like Hacker 
 
 Ribbot seeks to allow any company or online community to setup a similar forum and build a high quality community online.
 
+To enable sign-in via Facebook, please pass your application Id and Key to a server as variables.
+
 ## Contributing
 
 * Feel free to fork, and submit pull requests

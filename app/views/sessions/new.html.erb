@@ -2,7 +2,11 @@
   
   <div class="span4 offset2">
     <%= form_tag sessions_path, :class => "form-stacked", :id => 'new_session' do |f| %>
-      <h1>Sign In</h1><br/>
+      <h1>Sign In
+      <% if has_omni_provider? :facebook %>
+	<span style="font-size:10px;"><%= link_to "...with Facebook", '/auth/facebook' %></span>
+      <% end %>
+      </h1><br/>
 
       <div class="field">
         <%= label_tag :email %>
