@@ -27,7 +27,10 @@ class PostsController < ApplicationController
         paginate :page => params[:page]
       end
     else
-      @posts = current_forum.posts.with_tags(params[:tags], current_forum).where(:'votes.point'.gt => -5).page(params[:page])
+      cond = { :'votes.point'.gt => -5 }
+      cond[:user_id] = params[:user_id] if params[:user_id]
+      @posts = current_forum.posts.with_tags(params[:tags], current_forum).
+	  where(cond).page(params[:page])
       
       if params[:sort] == 'top'
         @posts = @posts.desc('votes.point')

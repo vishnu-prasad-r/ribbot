@@ -52,6 +52,7 @@ Ribbot::Application.routes.draw do
   resources :sessions
 
   match '/auth/:provider/callback', to: 'sessions#create'
+  match 'user_posts' => 'posts#index', :path => '/posts/user/:user_id'
   match 'signin' => "sessions#new"
   match 'signout' => "sessions#destroy", :via => :delete
   match 'features' => 'static#features'

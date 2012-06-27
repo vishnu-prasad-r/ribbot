@@ -1,7 +1,7 @@
 <% p = participation %>
 
 <tr id="<%= dom_id(p) %>">
-  <td><%= link_to p.user.name, p.user %></td>
+  <td><%= link_to p.user.name, p.user %> (<%= link_to 'posts', user_posts_path( p.user ) %>)</td>
   <td><%= time_ago_in_words p.user.created_at %> ago</td>
   <td><%= p.level_in_words %></td>
   <td>
@@ -12,3 +12,4 @@
     <% end %>
   </td>
 </tr>
+
