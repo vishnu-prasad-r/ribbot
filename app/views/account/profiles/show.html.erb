@@ -1,12 +1,17 @@
 <div class="row">
+  <% if !admin_update %>
   <%= render 'shared/sidebar' %>
+  <% end %>
   
   <div class="span9">
-    <%= form_for current_user, :url => account_profile_path, :html => {:class => "user-form form-horizontal"} do |f| %>
+    <%= form_for @user, :url => account_profile_path, :html => {:class => "user-form form-horizontal"} do |f| %>
       <fieldset>
         <legend>Edit Profile</legend>
       
-        <%= render 'shared/error_messages', :target => current_user %>
+        <%= render 'shared/error_messages', :target => @user %>
+        <% if admin_update %>
+          <%= hidden_field_tag 'user_id', @user.id %>
+        <% end %>
       
         <div class="control-group">
           <%= f.label :name, :class => "control-label"%>
@@ -40,26 +45,34 @@
 
         <div class="form-actions">
           <%= submit_tag "Update Profile", :class => "btn btn-primary", :disable_with => "Updating..." %>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can view your public profile <%= link_to 'here', user_path(current_user), :target => "_blank" %>.
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can view your public profile <%= link_to 'here', user_path(@user), :target => "_blank" %>.
         </div>
       </fieldset>
     <% end %>
     
-    <%= form_for current_user, :url => password_reset_user_path(current_user), :html => {:class => "form-horizontal"} do %>
+    <%= form_for @user, :url => password_reset_user_path(@user), :html => {:class => "form-horizontal"} do %>
       <fieldset>
         <legend>Change Password</legend>
 
         <div class="control-group">
           <%= label_tag :old_password, nil, :class => "control-label" %>
-	<% if !current_user.random_password %>
-          <div class="controls"><%= password_field_tag :old_password %></div>
-	<% else %>
+        <% if admin_update %>
+          <%= hidden_field_tag 'user_id', @user.id %>
+          <div class="controls"><%= text_field_tag :old_password, nil,
+              { :disabled => true,
+                :placeholder => "... isn't required for superusers",
+                :title => "Old password of a user isn't required for superusers"
+              } %>
+          </div>
+	<% elsif @user.random_password %>
 	  <div class="controls"><%= text_field_tag :old_password, nil,
 	      { :disabled => true,
 		:placeholder => "... isn't required untill changed",
 		:title => "Old password was generated randomly, so it isn't required untill changed"
 	      } %>
 	  </div>
+	<% else %>
+          <div class="controls"><%= password_field_tag :old_password %></div>
 	<% end %>
         </div>
       

@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :only => :password_reset
   before_filter :require_current_forum!, :only => :show
+  before_filter :check_superuser, :only => :edit
+  before_filter :check_superuser, :only => :password_reset,
+      :if => lambda {|c| !params[:user_id].blank?}
   
   def new
     @title = "Create a Forum"
@@ -33,6 +36,11 @@ class UsersController < ApplicationController
     end
   end
   
+  def edit
+    @user = User.find(params[:id])
+    render 'account/profiles/show', :locals => {:admin_update => true}
+  end
+
   def show
     @user = User.find(params[:id])
     raise CanCan::AccessDenied.new("Not authorized!", :view, User) unless @user.member_of?(current_forum)
@@ -41,21 +49,22 @@ class UsersController < ApplicationController
   end
   
   def password_reset
-    @user = current_user
-    if @user.random_password || @user.authenticate(params[:old_password])
+    @user = (id = params[:user_id]) && User.find(id) || current_user
+    path = id && account_users_path || account_profile_path
+    if id || @user.random_password || @user.authenticate(params[:old_password])
       if params[:password] == params[:password_confirmation]
         @user.password = params[:password]
 	@user.random_password = false
         if @user.save
-          redirect_to account_profile_path, :notice => "Password updated!"
+          redirect_to path, :notice => "Password updated!"
         else
-          redirect_to account_profile_path, :notice => @user.errors.full_messages.join(" ")
+          redirect_to path, :notice => @user.errors.full_messages.join(" ")
         end
       else
-        redirect_to account_profile_path, :notice => "New password didn't match confirmation"
+        redirect_to path, :notice => "New password didn't match confirmation"
       end
     else
-      redirect_to account_profile_path, :notice => "Old password didn't match"
+      redirect_to path, :notice => "Old password didn't match"
     end
   end
   

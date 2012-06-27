@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   include Authentication
   
   before_filter :check_subdomain
+
+  def check_superuser
+    if !current_user.superuser
+      raise CanCan::AccessDenied.new("Not authorized!", :edit, User)
+    end
+  end
   
   def check_subdomain
     if Rails.env.production? and request.host.downcase == 'ribbot.herokuapp.com'
