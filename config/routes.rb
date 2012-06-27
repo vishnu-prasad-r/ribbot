@@ -18,6 +18,8 @@ Ribbot::Application.routes.draw do
       put :ban
       put :unban
       put :hide
+      put :promote
+      put :disrank
     end
   end
   resources :themes
@@ -51,6 +53,8 @@ Ribbot::Application.routes.draw do
   resources :password_resets
   resources :sessions
 
+  match '/auth/:provider/callback', to: 'sessions#create'
+  match 'user_posts' => 'posts#index', :path => '/posts/user/:user_id'
   match 'signin' => "sessions#new"
   match 'signout' => "sessions#destroy", :via => :delete
   match 'features' => 'static#features'
