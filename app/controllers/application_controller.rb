@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  LOCAL = ['ribbot.com', 'ribbot.local', 'localhost', 'example.com'].to_set
+  LOCAL = ['ribbot.com', 'ribbot.local', 'localhost', 'impact.org'].to_set
   def current_forum
     if LOCAL.include?(request.domain)
       @current_forum ||= request.subdomain.present? ? Forum.where(:subdomain => request.subdomain.downcase).first : nil

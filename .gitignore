@@ -7,3 +7,4 @@ solr/data
 solr/pids
 sunspot-solr.pid
 .DS_Store
+public/assets/

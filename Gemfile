@@ -28,6 +28,8 @@ gem 'heroku',                        '2.20.1'
 gem 'omniauth-github',               '1.0.1'
 gem 'omniauth-facebook',             '1.4.0'
 
+gem 'unicorn'
+
 group :assets do
   gem 'sass-rails', "  ~> 3.1.4"
   gem 'coffee-rails', "~> 3.1.1"

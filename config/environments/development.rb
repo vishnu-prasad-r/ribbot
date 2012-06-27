@@ -31,5 +31,26 @@ Ribbot::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = false
   
-  config.action_mailer.default_url_options = { :host => "ribbot.local:3000" }
+  config.action_mailer.default_url_options = { :host => "impact.org" }
+
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'impact.org'
+  }
+  ActionMailer::Base.delivery_method = :smtp
+
+#  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
+#  config.action_mailer.delivery_method = :ses
+
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[Exception] ",
+    :sender_address => %{"Service" <service@impact.org>},
+    :exception_recipients => %w{donny.ouyang@impact.org}
+
+  config.action_controller.asset_host = "stories.impact.org"
 end

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= title %></title>
+  <title>Impact Entrepreneurship Group</title>
   <meta name="Description" content="<%= meta_description %>">
   <link rel="shortcut icon" href="/favicon.ico" />
   <%= stylesheet_link_tag "application" %>
@@ -9,7 +9,19 @@
   
 
   <%= csrf_meta_tags %>
-  <%= analytics_code %>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-467949-12']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 </head>
 <body class="<%= controller_name %> <%= action_name %>">
   <% if current_user and current_user.superuser? %>
@@ -31,17 +43,9 @@
         <%= link_to site_name, root_path, :class => "brand" %>
         
         <div class="nav-collapse">
-          <% if current_forum.nil? %>
-            <ul class="nav">
-              <li class="<%= 'active' if action_name == 'features' %>"><%= link_to 'Features', features_path %></li>
-              <li class="<%= 'active' if action_name == 'pricing' %>"><%= link_to 'Pricing', pricing_path %></li>
-              <li><%= link_to 'Support', root_url(:subdomain => 'support')%></li>
-            </ul>
-          <% else %>
             <ul class="nav">
               <%= render 'pages/header' %>
             </ul>
-          <% end %>
           
           <ul class="nav pull-right">
             <% if signed_in? %>
@@ -49,17 +53,15 @@
                 <li class="dropdown" data-dropdown="dropdown">              
                   <%= link_to "#{current_user.name} <b class='caret'></b>".html_safe, '#', :class => "dropdown-toggle", :'data-toggle' => 'dropdown' %>
                   <ul class="dropdown-menu">
-                    <li><%= link_to "My Profile", account_comments_path %></li>
+                    <li><%= link_to "My Profile", account_comments_path, :style => "padding:10px 10px 11px" %></li>
                     <% if can? :edit, current_forum %>
-                      <li><%= link_to "Forum Settings", account_settings_path %></li>
+                      <li><%= link_to "Forum Settings", account_settings_path, :style => "padding:10px 10px 11px" %></li>
                     <% end %>
-                    <li><%= link_to "Leave Forum", forums_url(:subdomain => false) %></li>
                     <li class="divider"></li>
-                    <li><%= link_to "Sign Out", signout_path, :method => :delete %></li>
+                    <li><%= link_to "Sign Out", signout_path, :method => :delete, :style => "padding:10px 10px 11px" %></li>
                   </ul>
                 </li>
               <% else %>
-                <li class="<%= 'active' if controller_name == 'forums' %>"><%= link_to "My Forums", forums_path %></li>
                 <li><%= link_to "Sign Out", signout_path, :method => :delete %></li>
               <% end %>
             <% else %>
@@ -91,18 +93,12 @@
     <% end %>
     
     <footer>
-      <% if request.subdomain.present? and request.subdomain != 'www' %>
-        <p class='pull-right'>
-          Powered by 
-          <% if Rails.env.production? %>
-            <%= link_to "Ribbot.com", "http://ribbot.com" %>
-          <% else %>
-            <%= link_to "Ribbot.com", "http://ribbot.local:3000" %>
-          <% end %>
-        </p>
-      <% else %>
-        <p>&copy; Ribbot <%= Time.now.year %></p>
-      <% end %>
+      <div style="padding:10px;margin-bottom:30px;font-size:14px;width:500px;float:left;">
+	  <a href="/?tags=Breaking+News" style="color:#333">Breaking News</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/?tags=Start-Up+Jobs" style="color:#333">Jobs</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/?tags=Start-Up+Events" style="color:#333">Events</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/?tags=Inspirational+Quotes+%26+Stories" style="color:#333">Inspiration</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="/?tags=Resources" style="color:#333">Resources</a>
+	  </div>
+	  <div style="padding:10px;margin-bottom:30px;width:350px;float:right;" align="right">
+	  Copyright 2004-2012 Impact Entrepreneurship Group
+	  </div>
     </footer>
   </div>
   
@@ -113,5 +109,13 @@
       <%= yield :javascript_footer %>
     });
   </script>
+  <script type="text/javascript">
+  var uvOptions = {};
+  (function() {
+    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/34CHn8husljVevFYYVHXA.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  })();
+</script>
 </body>
 </html>

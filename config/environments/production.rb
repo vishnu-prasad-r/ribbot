@@ -38,7 +38,7 @@ Ribbot::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-  config.cache_store = :dalli_store
+  config.cache_store = :dalli_store, '127.0.0.1', { :expires_in => 15.day, :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -50,7 +50,7 @@ Ribbot::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
-  # config.threadsafe!
+  config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -59,24 +59,28 @@ Ribbot::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => "ribbot.com" }
+  config.action_mailer.default_url_options = { :host => "impact.org" }
   
-  # ActionMailer::Base.smtp_settings = {
-  #   :address        => 'smtp.sendgrid.net',
-  #   :port           => '587',
-  #   :authentication => :plain,
-  #   :user_name      => ENV['SENDGRID_USERNAME'],
-  #   :password       => ENV['SENDGRID_PASSWORD'],
-  #   :domain         => 'heroku.com'
-  # }
-  # ActionMailer::Base.delivery_method = :smtp
-  
-  config.action_mailer.delivery_method = :ses
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => 'rayku',
+    :password       => 'bghtyu123',
+#    :user_name      => ENV['SENDGRID_USERNAME'],
+#    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'impact.org'
+  }
+  ActionMailer::Base.delivery_method = :smtp
+
+#  config.action_mailer.delivery_method = :sendmail
+#  config.action_mailer.delivery_method = :ses
   
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[Exception] ",
-    :sender_address => %{"Exception Notifier" <contact@ribbot.com>},
-    :exception_recipients => %w{barmstrong@gmail.com}
+    :sender_address => %{"Service" <service@impact.org>},
+    :exception_recipients => %w{donny.ouyang@impact.org}
     
-  config.action_controller.asset_host = "ribbot.com"
+  config.action_controller.asset_host = "stories.impact.org"
+#  config.action_controller.asset_host = "108.171.189.51"
 end

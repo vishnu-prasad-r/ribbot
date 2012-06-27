@@ -1,5 +1,5 @@
 class StaticController < ApplicationController
-  def features
+  def aboutus
   end
   
   def pricing

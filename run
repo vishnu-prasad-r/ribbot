@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Precompile the asset files
+#bundle exec rake assets:precompile
+
+cd /srv/stories/current
+killall -9 unicorn_rails ruby
+
+# run standalone sunspot solr service,it is required to the ribbot
+#bundle exec sunspot-solr start -p 8983
+
+SENDGRID_USERNAME=rayku SENDGRID_PASSWORD=bghtyu123 unicorn_rails -c config/unicorn.rb -E production -D
+#SENDGRID_USERNAME=rayku SENDGRID_PASSWORD=bghtyu123 unicorn_rails -c config/unicorn.rb -E development -D
+
