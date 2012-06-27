@@ -12,6 +12,16 @@ class ParticipationsController < ApplicationController
     render :ban
   end
   
+  def disrank
+    @participation.update_attribute :level, 10
+    render :ban
+  end
+
+  def promote
+    @participation.update_attribute :level, 0
+    render :ban
+  end
+
   def hide
     if @participation.level == Participation::MEMBER
       p 2

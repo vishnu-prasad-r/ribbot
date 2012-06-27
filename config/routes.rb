@@ -18,6 +18,8 @@ Ribbot::Application.routes.draw do
       put :ban
       put :unban
       put :hide
+      put :promote
+      put :disrank
     end
   end
   resources :themes

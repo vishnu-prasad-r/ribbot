@@ -10,6 +10,11 @@
     <% else %>
       <%= link_to 'Ban', ban_participation_path(p), :remote => true, :method => :put, :class => "btn small" %>
     <% end %>
+    <% if p.level > 0 %>
+      <%= link_to 'Promote', promote_participation_path(p), :remote => true, :method => :put, :class => "btn small" %>
+    <% else %>
+      <%= link_to 'Disrank', disrank_participation_path(p), :remote => true, :method => :put, :class => "btn small" %>
+    <% end %>
     <% if current_user.superuser %>
       <%= link_to 'Edit', edit_user_path(p.user), :class => "btn small" %>
     <% end %>
