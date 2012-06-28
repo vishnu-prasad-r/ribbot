@@ -27,6 +27,7 @@ gem 'redcarpet',                     '2.0.0'
 gem 'heroku',                        '2.20.1'
 gem 'omniauth-github',               '1.0.1'
 gem 'omniauth-facebook',             '1.4.0'
+gem 'to_xls',                        '~> 1.0.0'
 
 group :assets do
   gem 'sass-rails', "  ~> 3.1.4"
