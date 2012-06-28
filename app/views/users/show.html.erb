@@ -18,6 +18,10 @@
     <td><%= link_to @user.website, @user.website, :rel => "nofollow" if @user.website.present? %></td>
   </tr>
   <tr>
+    <td><strong>School</strong></td>
+    <td><%= @user.school %></td>
+  </tr>
+  <tr>
     <td><strong>About</strong></td>
     <td><%= simple_format @user.about %></td>
   </tr>
@@ -34,3 +38,4 @@
     </td>
   </tr>
 </table>
+

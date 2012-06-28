@@ -5,6 +5,9 @@ class User
   include Mongo::Voter
   
   include Gravtastic
+
+  SchoolIndex = [ 'High School', 'College', 'Graduate School' ]
+
   gravtastic :size => 20, :secure => false
   
   field :name, :type => String
@@ -20,6 +23,7 @@ class User
   field :location, :type => String
   field :about, :type => String
   field :random_password, :type => Boolean, :default => false
+  field :school, :type => String
 
   index :email, unique: true
   index :verification_token, unique: true
@@ -45,6 +49,11 @@ class User
       u.about = auth.info.description
       u.website = auth.extra.raw_info.website
       u.location = auth.info.location
+      if !(schools = auth.extra.raw_info.education || []).empty?
+	u.school = schools.sort do |x,y|
+	  (SchoolIndex.index(y.type)||-1) <=> (SchoolIndex.index(x.type)||-1)
+	end[0].school.name
+      end
 
       #generating a random password
       password = ''

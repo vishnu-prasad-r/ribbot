@@ -1,7 +1,9 @@
 <div class="row">
   <%= render 'shared/sidebar' %>
-  
+
   <div class="span9">
+    <%= link_to 'Export to Excel', url_for(:format => 'xls') %>
+
     <table class="table">
       <thead>
         <tr>
@@ -19,3 +21,4 @@
     <%= paginate @participations %>
   </div>
 </div>
+
