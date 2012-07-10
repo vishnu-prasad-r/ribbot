@@ -39,9 +39,61 @@
         <% end %>
       </fieldset>
 
+      <fieldset>
+        <legend>Reply to Post Notification</legend>
+        <div class="control-group">
+          Please, set up subject and content of the reply to post e-mail notification.
+        </div>
+
+        <div class="control-group">
+          <%= f.label :reply_to_post_notification_subject, :class => "control-label" %>
+          <div class="controls"><%= f.text_field :reply_to_post_notification_subject %></div>
+	</div>
+
+        <div class="control-group">
+          <%= f.label :reply_to_post_notification_content, :class => "control-label" %>
+	  <div class="controls"><%= f.text_area :reply_to_post_notification_content, :class => 'span6', :style => "height: 80px;" %></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Reply to Comment Notification</legend>
+        <div class="control-group">
+          Please, set up subject and content of the reply to comment e-mail notification.
+        </div>
+
+        <div class="control-group">
+          <%= f.label :reply_to_comment_notification_subject, :class => "control-label" %>
+          <div class="controls"><%= f.text_field :reply_to_comment_notification_subject %></div>
+	</div>
+
+        <div class="control-group">
+          <%= f.label :reply_to_comment_notification_content, :class => "control-label" %>
+	  <div class="controls"><%= f.text_area :reply_to_comment_notification_content, :class => 'span6', :style => "height: 80px;" %></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Up vote Post Notification</legend>
+        <div class="control-group">
+          Please, set up subject and content of the up-vote a post e-mail notification.
+        </div>
+
+        <div class="control-group">
+          <%= f.label :up_vote_post_notification_subject, :class => "control-label" %>
+          <div class="controls"><%= f.text_field :up_vote_post_notification_subject %></div>
+	</div>
+
+        <div class="control-group">
+          <%= f.label :up_vote_post_notification_content, :class => "control-label" %>
+	  <div class="controls"><%= f.text_area :up_vote_post_notification_content, :class => 'span6', :style => "height: 80px;" %></div>
+        </div>
+      </fieldset>
+
       <div class="form-actions">
         <%= submit_tag "Save Changes", :class => "btn btn-primary", :disable_with => "Saving..." %>
       </div>
     <% end %>
   </div>
 </div>
+
