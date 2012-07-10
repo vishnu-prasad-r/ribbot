@@ -57,7 +57,7 @@ Ribbot::Application.routes.draw do
   match 'user_posts' => 'posts#index', :path => '/posts/user/:user_id'
   match 'signin' => "sessions#new"
   match 'signout' => "sessions#destroy", :via => :delete
-  match 'features' => 'static#features'
+  match 'aboutus' => 'static#aboutus'
   match 'pricing' => 'static#pricing'
   
   constraints(Subdomain) do
