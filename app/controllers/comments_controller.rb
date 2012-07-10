@@ -12,8 +12,10 @@ class CommentsController < ApplicationController
     @comment = @post.comments.new(params[:comment])
     @comment.forum = current_forum
     @comment.user = current_user
-    @comment.parent = @post.comments.find(params[:comment][:parent_id]) unless params[:comment][:parent_id].blank?
-    
+    parent = !params[:comment][:parent_id].blank? &&
+	@post.comments.find(params[:comment][:parent_id]) || nil
+    @comment.parent = parent if parent
+
     respond_to do |format|
       format.html do
         if @comment.save
@@ -23,6 +25,12 @@ class CommentsController < ApplicationController
         end
       end
       format.js
+    end
+
+    if parent
+      @comment.notify_reply_to_comment parent
+    else
+      @comment.notify_reply_to_post @post
     end
   end
   

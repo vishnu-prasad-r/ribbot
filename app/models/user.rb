@@ -123,7 +123,12 @@ class User
     save!
     Mailer.email_verification(self, forum).deliver
   end
-  
+
+  def notify_up_vote voteable
+    return if voteable.user == self || !voteable.is_a?(Post)
+    Mailer.up_vote_post_notification(self, voteable).deliver
+  end
+
   def up_voted? voteable
     self.vote_value(voteable) == :up
   end

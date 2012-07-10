@@ -22,6 +22,19 @@ class Forum
   field :comment_label, type: String, default: "Comment"
   field :comments_label, type: String, default: "Comments"
   field :new_comment_label, type: String, default: "Add Comment"
+
+  field :reply_to_post_notification_subject, type: String,
+      default: "%user% has Replied to Your Post"
+  field :reply_to_post_notification_content, type: String,
+      default: "%user_link% has replied to your post: %post_link%."
+  field :reply_to_comment_notification_subject, type: String,
+      default: "%user% has Replied to Your Comment"
+  field :reply_to_comment_notification_content, type: String,
+      default: "%user_link% has replied to your comment to the post: %post_link%."
+  field :up_vote_post_notification_subject, type: String,
+      default: "%user% has Made Up a Vote to Your Post"
+  field :up_vote_post_notification_content, type: String,
+      default: "%user_link% has made a vote up to your post: %post_link%."
   
   index :subdomain, unique: true
   index :custom_domain, unique: true

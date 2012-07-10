@@ -73,4 +73,15 @@ class Comment
     end
     self.move_to_right_of(sibs.last)
   end
+
+  def notify_reply_to_comment comment
+    return if comment.user == user
+    Mailer.reply_to_comment_notification(user, comment.post).deliver
+  end
+
+  def notify_reply_to_post post
+    return if post.user == user
+    Mailer.reply_to_post_notification(user, post).deliver
+  end
 end
+

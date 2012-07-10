@@ -27,6 +27,9 @@ class VotesController < ApplicationController
     if allowed
       if params[:toggle] == 'on'
         current_user.vote(voteable, params[:direction].to_sym)
+	if params[:direction].to_sym == :up
+	  current_user.notify_up_vote(voteable)
+	end
       elsif params[:toggle] == 'off'
         current_user.unvote(voteable)
       end
