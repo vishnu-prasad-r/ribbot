@@ -13,8 +13,8 @@ gem 'gravtastic',                    '3.2.6'
 gem 'mongoid_nested_set',            '0.1.3'
 gem 'cancan',                        '1.6.7'
 gem 'sunspot_mongoid',               '0.4.1', :git => "git://github.com/TV4/sunspot_mongoid.git"
-gem 'sunspot_rails',                 '1.3.0'#, :git => "git://github.com/sunspot/sunspot.git"
-gem 'sunspot_solr',                  '1.3.0'
+gem 'sunspot_rails',                 '1.3.3'#, :git => "git://github.com/sunspot/sunspot.git"
+gem 'sunspot_solr',                  '1.3.3'
 gem 'sunspot_with_kaminari',         '0.1.0'
 gem 'voteable_mongo',                '0.9.3'
 gem 'acts_as_list_mongoid',          '0.2.4'
