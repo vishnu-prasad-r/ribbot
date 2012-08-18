@@ -31,9 +31,10 @@
       </table>
     <% else %>
       <ul class="nav nav-tabs">
-        <li class="<%= 'active' if params[:sort].blank? %>"><%= link_to 'Popular', posts_path(request.query_parameters.merge(:sort => nil)) %></li>
+      	<li class="<%= 'active' if ((params[:sort] == 'latest')||(params[:sort].blank?)) %>"><%= link_to 'Latest', posts_path(request.query_parameters.merge(:sort => 'latest')) %></li>
+        <li class="<%= 'active' if params[:sort]=='popular' %>"><%= link_to 'Popular', posts_path(request.query_parameters.merge(:sort => 'popular')) %></li>
         <li class="<%= 'active' if params[:sort] == 'top' %>"><%= link_to 'Top', posts_path(request.query_parameters.merge(:sort => 'top')) %></li>
-        <li class="<%= 'active' if params[:sort] == 'latest' %>"><%= link_to 'Latest', posts_path(request.query_parameters.merge(:sort => 'latest')) %></li>
+        
       </ul>
       <table class="table table-striped">
         <%= render @posts %>

@@ -14,6 +14,8 @@ class User
   field :email, :type => String
   field :password_digest, :type => String
   field :superuser, :type => Boolean, :default => false
+  field :moderator, :type => Boolean, :default => false
+  field :notification, :type => Boolean, :default => false
   field :verification_token, :type => String
   field :verified_at, :type => DateTime
   field :password_reset_token, :type => String
@@ -24,6 +26,7 @@ class User
   field :about, :type => String
   field :random_password, :type => Boolean, :default => false
   field :school, :type => String
+  
 
   index :email, unique: true
   index :verification_token, unique: true
@@ -39,7 +42,7 @@ class User
   validates_presence_of :password, :on => :create
   validates_length_of :password, :minimum => 7, :unless => Proc.new {|u| u.password.nil? }
   
-  attr_protected :password_digest, :superuser
+  attr_protected :password_digest, :superuser ,:moderator
 
   before_validation :downcase_email
   

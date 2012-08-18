@@ -32,12 +32,16 @@ class PostsController < ApplicationController
       @posts = current_forum.posts.with_tags(params[:tags], current_forum).
 	  where(cond).page(params[:page])
       
-      if params[:sort] == 'top'
+      if params[:sort].nil? 
+      	@posts = @posts.desc(:created_at)
+      elsif params[:sort] == 'top'
         @posts = @posts.desc('votes.point')
       elsif params[:sort] == 'latest'
         @posts = @posts.desc(:created_at)
-      else
+      elsif params[:sort]=='popular'
         @posts = @posts.desc(:ranking)
+      else
+      	@posts = @posts.desc(:created_at)
       end            
     end
   end
