@@ -44,7 +44,7 @@ module ApplicationHelper
 
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-387546-19']);
-      _gaq.push(['_setDomainName', 'ribbot.com']);
+      _gaq.push(['_setDomainName', 'impact.org']);
       _gaq.push(['_trackPageview']);
 
       (function() {

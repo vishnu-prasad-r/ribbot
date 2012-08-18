@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   def check_subdomain
     if Rails.env.production? and request.host.downcase == 'ribbot.herokuapp.com'
-      redirect_to request.protocol + 'ribbot.com' + request.fullpath, :status => 301
+      redirect_to request.protocol + 'impact.org' + request.fullpath, :status => 301
     end
   end
   
@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   
   def require_current_forum!
     if current_forum.nil?
-      redirect_to forums_url(:subdomain => false, :host => 'ribbot.com')
+      redirect_to forums_url(:subdomain => false, :host => 'impact.org')
     end
   end
   
