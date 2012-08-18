@@ -9,6 +9,8 @@ killall -9 unicorn_rails ruby
 # run standalone sunspot solr service,it is required to the ribbot
 #bundle exec sunspot-solr start -p 8983
 
+TWITTER_KEY=DmOMXtMWTIsE99FRQt970Q \
+TWITTER_SECRET=xfNXEDCBzJ7nGh54P3DYq2GaWtAiEPvIYJZM4fRqHmM \
 FACEBOOK_KEY=102967663180426 \
 FACEBOOK_SECRET=463ef0ab65579c21c326b72f6b3a10ae \
 SENDGRID_USERNAME=rayku \

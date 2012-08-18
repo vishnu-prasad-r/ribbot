@@ -7,6 +7,8 @@ module StaticHelper
     case provider
     when :facebook
       !ENV['FACEBOOK_KEY'].blank? && !ENV['FACEBOOK_SECRET'].blank?
+    when :twitter
+      !ENV['TWITTER_KEY'].blank? && !ENV['TWITTER_SECRET'].blank?
     end
   end
 end
