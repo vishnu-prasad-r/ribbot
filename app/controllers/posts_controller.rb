@@ -19,6 +19,74 @@ class PostsController < ApplicationController
     end
   end
   
+  def create_comment
+    @comment = params[:id].present? &&
+	@post.comments.find(params[:id]) ||
+	@post.comments.new(params[:comment])
+    @comment.forum = current_forum
+    @comment.user = current_user
+    parent = !params[:comment][:parent_id].blank? &&
+	@post.comments.find(params[:comment][:parent_id]) || nil
+    @comment.parent = parent if parent
+
+    respond_to do |format|
+      format.html do
+        if @comment.save
+          redirect_to post_path(@comment.post), :notice => "Comment posted!"
+        else
+          redirect_to post_path(@comment.post)
+        end
+      end
+      format.js
+    end
+
+    if parent
+      @comment.notify_reply_to_comment parent
+    else
+      @comment.notify_reply_to_post @post
+    end
+
+  end
+
+  def twitter_callback
+    if params[:redirect_action].blank?
+      twit
+    else
+      if params[:form_action] =~ /([^\/]+)\/comments$/
+	@post = current_forum.posts.find($1)
+      end
+      eval params[:redirect_action]
+    end
+
+    if !params[:callback].blank?
+      eval params[:callback]
+    end
+  end
+
+  def twit
+    auth = request.env['omniauth.auth']
+    response = nil
+    if auth
+      access_token = auth.extra.access_token
+      options = access_token.consumer.options
+      @post ||= current_forum.posts.find(params[:post][:id])
+      if @post
+	response = eval "access_token.#{options[:http_method]}(
+	    '#{options[ :site ]}/1/statuses/update.json',
+	    { :status => 'Interesting #{@comment ? 'comment' : 'post'} ' +
+	      'on the Impact stories: ' + post_url( @post ) })"
+      end
+    end
+
+    if params[:redirect_action].blank?
+      if response
+	redirect_to @post, :notice => "Post twitted!"
+      else
+	redirect_to root_path, :notice => "Post hasn't twitted!"
+      end
+    end
+  end
+
   def index
     if params[:search].present?
       @posts = Post.solr_search do

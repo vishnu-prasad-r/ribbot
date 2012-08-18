@@ -38,10 +38,17 @@
       <% end %>
     </p>
   <% end %>
+
+  <% if @post.new_record? && has_omni_provider?(:twitter) -%>
+    <p>
+      <%= check_box_tag 'post[twit]', 'twit', false, :class => 'tag-checkbox twit-checkbox' %>
+      <%= link_to 'Twit the post', '#', :class => 'tag tag-link twit-link', :'data-action' => 'create' %>
+    </p>
+  <% end -%>
   
   <div class="form-actions">
     <% if @post.new_record? %>
-      <%= submit_tag "Submit", :class => "btn btn-primary", :disable_with => "Submitting..." %> &nbsp; <%= link_to "Cancel", :back, :class => "btn" %>
+      <%= submit_tag "Submit", :class => "btn btn-primary twit-submit", :disable_with => "Submitting..." %> &nbsp; <%= link_to "Cancel", :back, :class => "btn" %>
     <% else %>
       <%= submit_tag "Save Changes", :class => "btn btn-primary", :disable_with => "Saving..." %> &nbsp; <%= link_to "Cancel", :back, :class => "btn" %>
     <% end %>

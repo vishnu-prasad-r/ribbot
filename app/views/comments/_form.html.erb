@@ -9,14 +9,19 @@
   <p><%= f.text_area :text, :class => "span8" %></p>
   <p>
     <% button_text = @comment.new_record? ? current_forum.new_comment_label : 'Save Changes' %>
-    <%= submit_tag button_text, :class => "btn btn-primary", :disable_with => button_text, :disabled => !signed_in? %>
-    
+    <%= submit_tag button_text, :class => "btn btn-primary twit-submit", :disable_with => button_text, :disabled => !signed_in? %>
+
     <% if reply_comment %>
       <%= link_to "cancel", '#', :class => "cancel-link btn" %>
     <% end %>
     
     <% if not signed_in? %>
       <%= link_to "Sign in or create an account", signin_path %> to discuss.
+    <% else -%>
+      <% if has_omni_provider? :twitter -%>
+	<%= check_box_tag 'comment[twit]', 'twit', false, :class => 'tag-checkbox twit-checkbox' %>
+	<%= link_to 'Twit the comment', '#', :class => 'tag tag-link twit-link', :'data-action' => 'create_comment' %>
+      <% end -%>
     <% end %>
   </p>
 <% end %>

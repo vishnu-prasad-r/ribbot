@@ -27,6 +27,7 @@ gem 'redcarpet',                     '2.0.0'
 gem 'heroku',                        '2.20.1'
 gem 'omniauth-github',               '1.0.1'
 gem 'omniauth-facebook',             '1.4.0'
+gem 'omniauth-twitter',              '0.0.9'
 gem 'to_xls',                        '~> 1.0.0'
 
 gem 'unicorn'
