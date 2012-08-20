@@ -15,7 +15,7 @@
       <%= link_to 'delete', post_path(@post), :method => :delete, :confirm => "Are you really sure you want to delete this post?  This will delete any comments as well." %>
     <% end %>
     <% if has_omni_provider?( :twitter ) -%>
-      <%= link_to 'twit', "/auth/twitter?post[id]=#{@post.id}" %>
+      <%= link_to 'share this story on twitter', "/auth/twitter?post[id]=#{@post.id}" %>
     <% end -%>
   </p>
 </div>

@@ -71,18 +71,18 @@ class PostsController < ApplicationController
       options = access_token.consumer.options
       @post ||= current_forum.posts.find(params[:post][:id])
       if @post
+	text = (@comment && @comment.text || @post.title)[0..99] +
+	    ' ' + post_url(@post)
 	response = eval "access_token.#{options[:http_method]}(
-	    '#{options[ :site ]}/1/statuses/update.json',
-	    { :status => 'Interesting #{@comment ? 'comment' : 'post'} ' +
-	      'on the Impact stories: ' + post_url( @post ) })"
+	    '#{options[ :site ]}/1/statuses/update.json', { :status => text })"
       end
     end
 
     if params[:redirect_action].blank?
       if response
-	redirect_to @post, :notice => "Post twitted!"
+	redirect_to @post, :notice => "Story tweeted!"
       else
-	redirect_to root_path, :notice => "Post hasn't twitted!"
+	redirect_to root_path, :notice => "Story hasn't twitted!"
       end
     end
   end
