@@ -1,0 +1,30 @@
+ + Add Facebook Connect to the registration / login process (take email, name, school info and log into database)
+  = 9 hours
+ - Administration panel that shows each user's profile information in table format
+  + Add link in a user table to user's posts
+   <- List link beside each user to see their posts, and link to their profile
+   = 2 h
+  - Let's superusers to edit users
+   <- Be able to edit users
+   = 3 h
+  - Add school field
+   <- List user Name, Email, School, etc
+   = 2 h
+  - Export table to excel function
+   = 2 h
+ v Add an 'about me' field in user profile, which can be edited in user settings page
+ - Create a 'make superuser' button
+  = 1 h
+  <- Make donny@rayku.com, daniel.rodic@impact.org, and herbert.lui@impact.org accounts into 'super users' in the database
+ - Support
+  = 3 h
+----
+ 22 h
+
+
+
+Twitter
+ 15.08.12 - 6h
+ 16.08.12 - 4h
+ 17.08.12 - 5h
+ 20.08.12 - 1h
