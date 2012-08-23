@@ -5,12 +5,17 @@ class User
   include Mongo::Voter
   
   include Gravtastic
+
+  SchoolIndex = [ 'High School', 'College', 'Graduate School' ]
+
   gravtastic :size => 20, :secure => false
   
   field :name, :type => String
   field :email, :type => String
   field :password_digest, :type => String
   field :superuser, :type => Boolean, :default => false
+  field :moderator, :type => Boolean, :default => false
+  field :notification, :type => Boolean, :default => true
   field :verification_token, :type => String
   field :verified_at, :type => DateTime
   field :password_reset_token, :type => String
@@ -20,6 +25,8 @@ class User
   field :location, :type => String
   field :about, :type => String
   field :random_password, :type => Boolean, :default => false
+  field :school, :type => String
+  
 
   index :email, unique: true
   index :verification_token, unique: true
@@ -35,7 +42,7 @@ class User
   validates_presence_of :password, :on => :create
   validates_length_of :password, :minimum => 7, :unless => Proc.new {|u| u.password.nil? }
   
-  attr_protected :password_digest, :superuser
+  attr_protected :password_digest, :superuser ,:moderator
 
   before_validation :downcase_email
   
@@ -45,6 +52,11 @@ class User
       u.about = auth.info.description
       u.website = auth.extra.raw_info.website
       u.location = auth.info.location
+      if !(schools = auth.extra.raw_info.education || []).empty?
+	u.school = schools.sort do |x,y|
+	  (SchoolIndex.index(y.type)||-1) <=> (SchoolIndex.index(x.type)||-1)
+	end[0].school.name
+      end
 
       #generating a random password
       password = ''
@@ -114,7 +126,12 @@ class User
     save!
     Mailer.email_verification(self, forum).deliver
   end
-  
+
+  def notify_up_vote voteable
+    return if voteable.user == self || !voteable.is_a?(Post)
+    Mailer.up_vote_post_notification(self, voteable).deliver
+  end
+
   def up_voted? voteable
     self.vote_value(voteable) == :up
   end

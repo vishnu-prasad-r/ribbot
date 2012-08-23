@@ -39,6 +39,11 @@
         </div>
       
         <div class="control-group">
+          <%= label_tag :notification, 'Notify me about new comments via e-mail', :class => "control-label"%>
+          <div class="controls"><%= f.check_box :notification %></div>
+        </div>
+      
+        <div class="control-group">
           <%= f.label :about, 'About me', :class => "control-label"%>
           <div class="controls"><%= f.text_area :about, :class => "span5" %></div>
         </div>

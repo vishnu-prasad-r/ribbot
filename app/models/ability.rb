@@ -8,7 +8,16 @@ class Ability
     if user.superuser?
       can :manage, :all
     end
-
+    
+    
+    if user.moderator==true
+      #Granting all permissions to moderators
+      can :manage, :all
+      #Now restricting moderators ability to destroy super user
+      cannot :manage ,User,:superuser=>true
+    end
+    
+    
     can :manage, Forum do |f|
       user.admin_of?(f)
     end
