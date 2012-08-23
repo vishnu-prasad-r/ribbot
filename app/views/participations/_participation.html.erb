@@ -17,6 +17,13 @@
     <% end %>
     <% if current_user.superuser %>
       <%= link_to 'Edit', edit_user_path(p.user), :class => "btn small" %>
+      
+        <% if p.user.moderator %>
+      		<%= link_to 'Revoke moderator', makemod_participation_path(p), :remote => true, :method => :put, :class => "btn small" %>
+    	<% else %>
+      		<%= link_to 'Make moderator', removemod_participation_path(p), :remote => true, :method => :put, :class => "btn small" %>
+   	 <% end %>
+      
     <% end %>
   </td>
 </tr>

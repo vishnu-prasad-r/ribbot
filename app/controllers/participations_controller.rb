@@ -21,6 +21,16 @@ class ParticipationsController < ApplicationController
     @participation.update_attribute :level, 0
     render :ban
   end
+  
+  def makemode
+    @participation.user.moderator=true
+    render :ban
+  end
+  
+    def removemode
+    @participation.user.moderator=false
+    render :ban
+   end
 
   def hide
     if @participation.level == Participation::MEMBER
