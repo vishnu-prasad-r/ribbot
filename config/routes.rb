@@ -20,6 +20,8 @@ Ribbot::Application.routes.draw do
       put :hide
       put :promote
       put :disrank
+      put :makemod
+      put :removemod
     end
   end
   resources :themes
